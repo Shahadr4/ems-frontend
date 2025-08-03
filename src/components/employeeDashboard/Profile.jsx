@@ -51,17 +51,17 @@ export default function View() {
       <div className="bg-white rounded-xl shadow-md max-w-4xl w-full p-6 sm:p-10 flex flex-col md:flex-row items-center md:items-start gap-10">
         
         {/* Profile Image */}
-        <div className="flex-shrink-0 w-48 h-48 rounded-full overflow-hidden border-4 border-gray-200 shadow">
-          {employee.userId.profileImage ? (
+        <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-indigo-300 shadow-md">
             <img
-              src={`https://ems-backend-taupe.vercel.app/${employee.userId.profileImage}`}
-              alt="Profile"
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <FaUserCircle className="text-gray-300 text-[180px]" />
-          )}
-        </div>
+  src={
+    employee.userId.profileImage && employee.userId.profileImage.data
+      ? `data:${employee.userId.profileImage.contentType};base64,${employee.userId.profileImage.data}`
+      : "/default-profile.png" // fallback image path
+  }
+  alt="Profile"
+  className="w-full h-full object-cover rounded-full"
+/>
+          </div>
 
         {/* Details Section */}
         <div className="flex-1 text-gray-800">
