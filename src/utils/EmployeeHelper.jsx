@@ -17,10 +17,14 @@ export const columns = ( navigate) => [
     name: "Profile",
     cell: (row) => (
       <img
-        src={`https://ems-backend-taupe.vercel.app/${row.profileImage}`}
-        alt="Profile"
-        className="w-10 h-10 object-cover border border-gray-300"
-      />
+  src={
+    employee.userId.profileImage && employee.userId.profileImage.data
+      ? `data:${employee.userId.profileImage.contentType};base64,${employee.userId.profileImage.data}`
+      : "/default-profile.png" // fallback image path
+  }
+  alt="Profile"
+  className="w-10 h-10 object-cover border border-gray-300"
+/>
     ),
     width: "80px",
   },
