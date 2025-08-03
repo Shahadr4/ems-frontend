@@ -24,7 +24,7 @@ function Login() {
     
     e.preventDefault();
     try {
-      const response = await axios.post('https://ems-backend-taupe.vercel.app/api/auth/login', { email, password });
+      const response = await axios.post('https://ems-backend-chi.vercel.app/api/auth/login', { email, password });
       if (response.data.success) {
         login(response.data.user) // Set user data in context
         localStorage.setItem('token', response.data.token); // Store token in localStorage
