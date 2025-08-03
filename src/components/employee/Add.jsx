@@ -17,64 +17,73 @@ export default function Add() {
     password: "",
     profileImage: null,
   });
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const getDepartments = async () => {
       const data = await fetchDepartments();
-      setDepartments(data);
+      setDepartments(data || []);
     };
     getDepartments();
   }, []);
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
+
     if (name === "profileImage") {
-      setFormData({ ...formData, [name]: files[0] });
+      const file = files[0];
+
+      if (file && file.size > 1024 * 1024 * 2) {
+        alert("Image size must be under 2MB");
+        return;
+      }
+
+      setFormData((prev) => ({ ...prev, profileImage: file }));
     } else {
-      setFormData({ ...formData, [name]: value });
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!formData.profileImage || formData.profileImage === "undefined") {
-    alert("Please select a profile image.");
-    return;
-  }
-
-  const formDataObj = new FormData();
-  Object.keys(formData).forEach((key) => {
-    formDataObj.append(key, formData[key]);
-  });
-
-  try {
-    const response = await axios.post(
-      "https://ems-backend-taupe.vercel.app/api/employee/add",
-      formDataObj,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-
-    if (response.data.success) {
-      navigate("/admin-dashboard/employees");
+    if (!formData.profileImage) {
+      alert("Please upload a profile image.");
+      return;
     }
-  } catch (error) {
-    console.log("response doesnt get")
-    alert(error.response.data.error);
-  }
-};
 
+    const formDataObj = new FormData();
+
+    for (const key in formData) {
+      formDataObj.append(key, formData[key]);
+    }
+
+    try {
+      const response = await axios.post(
+        "https://ems-backend-taupe.vercel.app/api/employee/add",
+        formDataObj,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data.success) {
+        navigate("/admin-dashboard/employees");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert(error.response?.data?.error || "Server error");
+    }
+  };
 
   return (
-    <div className="max-w-4xl mx-auto my-10 p-6 bg-gray-400 rounded-xl shadow-md">
+    <div className="max-w-4xl mx-auto my-10 p-6 bg-gray-100 rounded-xl shadow-md">
       <div className="mb-4">
-        <h3 className="text-2xl font-bold text-gray-800 text-center border-b pb-2">
+        <h3 className="text-2xl font-bold text-center border-b pb-2">
           Add Employee
         </h3>
       </div>
@@ -84,59 +93,44 @@ export default function Add() {
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        {/* Employee Name */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Employee Name
-          </label>
-          <input
-            type="text"
-            onChange={handleInputChange}
-            name="name"
-            placeholder="Enter Employee Name"
-            required
-            className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-          />
-        </div>
+        {/* Name */}
+        <InputField
+          label="Employee Name"
+          name="name"
+          type="text"
+          value={formData.name}
+          onChange={handleInputChange}
+          required
+        />
 
         {/* Employee ID */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Employee ID
-          </label>
-          <input
-            type="text"
-            onChange={handleInputChange}
-            name="employeeId"
-            required
-            placeholder="Enter Employee ID"
-            className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-          />
-        </div>
+        <InputField
+          label="Employee ID"
+          name="employeeId"
+          type="text"
+          value={formData.employeeId}
+          onChange={handleInputChange}
+          required
+        />
+
         {/* Email */}
-<div>
-  <label className="block text-sm font-medium text-gray-700 mb-1">
-    Email
-  </label>
-  <input
-    type="email"
-    onChange={handleInputChange}
-    name="email"
-    placeholder="Enter Email"
-    required
-    className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-  />
-</div>
+        <InputField
+          label="Email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+        />
 
         {/* Department */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Department
-          </label>
+          <Label text="Department" />
           <select
-            onChange={handleInputChange}
             name="department"
-            className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+            onChange={handleInputChange}
+            value={formData.department}
+            className="form-select"
           >
             <option value="">Select Department</option>
             {departments.map((dept) => (
@@ -149,13 +143,12 @@ export default function Add() {
 
         {/* Role */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Role
-          </label>
+          <Label text="Role" />
           <select
             name="role"
             onChange={handleInputChange}
-            className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+            value={formData.role}
+            className="form-select"
           >
             <option value="">Select Role</option>
             <option value="admin">Admin</option>
@@ -164,86 +157,67 @@ export default function Add() {
         </div>
 
         {/* Salary */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Salary
-          </label>
-          <input
-            onChange={handleInputChange}
-            type="number"
-            name="salary"
-            required
-            placeholder="Enter Salary"
-            className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-          />
-        </div>
+        <InputField
+          label="Salary"
+          name="salary"
+          type="number"
+          value={formData.salary}
+          onChange={handleInputChange}
+          required
+        />
 
         {/* Gender */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Gender
-          </label>
+          <Label text="Gender" />
           <select
-            onChange={handleInputChange}
             name="gender"
-            className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+            onChange={handleInputChange}
+            value={formData.gender}
+            className="form-select"
           >
             <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
         </div>
 
-        {/* Date of Birth */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Date of Birth
-          </label>
-          <input
-            onChange={handleInputChange}
-            type="date"
-            name="dob"
-            className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-          />
-        </div>
+        {/* DOB */}
+        <InputField
+          label="Date of Birth"
+          name="dob"
+          type="date"
+          value={formData.dob}
+          onChange={handleInputChange}
+        />
 
         {/* Password */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Password
-          </label>
-          <input
-            onChange={handleInputChange}
-            type="password"
-            name="password"
-            required
-            placeholder="Enter Password"
-            className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-          />
-        </div>
+        <InputField
+          label="Password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
 
-        {/* Upload Image */}
+        {/* Profile Image */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Upload Image
-          </label>
+          <Label text="Upload Image" />
           <input
-            onChange={handleInputChange}
             type="file"
             name="profileImage"
             accept="image/*"
-            className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4
-              file:rounded-full file:border-0 file:text-sm file:font-semibold
-              file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            onChange={handleInputChange}
+            className="form-file"
           />
         </div>
 
         {/* Submit Button */}
-        <div className="md:col-span-2 text-center mt-2">
+        <div className="md:col-span-2 text-center mt-4">
           <button
             type="submit"
-            className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition"
+            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
           >
             Submit
           </button>
@@ -252,3 +226,47 @@ export default function Add() {
     </div>
   );
 }
+
+// 🔹 Reusable Input Field
+const InputField = ({ label, name, type, value, onChange, required }) => (
+  <div>
+    <Label text={label} />
+    <input
+      type={type}
+      name={name}
+      value={value}
+      required={required}
+      onChange={onChange}
+      className="form-input"
+    />
+  </div>
+);
+
+// 🔹 Reusable Label
+const Label = ({ text }) => (
+  <label className="block text-sm font-medium text-gray-700 mb-1">{text}</label>
+);
+
+// 🔹 Basic TailwindCSS Classes (Optional Utility Style)
+const styles = `
+  .form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .form-select {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid #d1d5db;
+    background-color: white;
+  }
+  .form-file {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    color: #4b5563;
+  }
+`;
