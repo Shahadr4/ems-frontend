@@ -8,6 +8,8 @@ export default function AttendenceCard({ id }) {
   const [marking, setMarking] = useState(false);
 
   const today = new Date();
+  const formattedDate = today.toLocaleDateString(); // ✅ format date for display
+  const isoDate = today.toISOString().split("T")[0]; // ✅ format date for API (YYYY-MM-DD)
 
   // Fetch today's attendance status
   const fetchTodayStatus = async () => {
@@ -20,7 +22,7 @@ export default function AttendenceCard({ id }) {
 
     try {
       const res = await axios.get(
-        `https://ems-backend-chi.vercel.app/api/attendence/status?date=${today}`,
+        `https://ems-backend-chi.vercel.app/api/attendence/status?date=${isoDate}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -42,7 +44,6 @@ export default function AttendenceCard({ id }) {
   // Submit attendance
   const markAttendance = async (markAs) => {
     setMarking(true);
-    console.log(markAs)
     try {
       const token = localStorage.getItem("token");
       await axios.post(
@@ -153,8 +154,9 @@ export default function AttendenceCard({ id }) {
             </>
           )}
 
+          {/* ✅ Fixed Date display */}
           <p className="text-center text-sm text-gray-500 mt-6">
-            Date: {today}
+            Date: {formattedDate}
           </p>
         </div>
       </div>
