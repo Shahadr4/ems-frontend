@@ -66,7 +66,7 @@ export default function Add() {
     }
   } catch (error) {
     console.log("response doesnt get")
-    alert(error.response?.data?.error || "Something went wrong");
+    alert(error.response.data.error);
   }
 };
 
