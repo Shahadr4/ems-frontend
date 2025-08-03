@@ -94,6 +94,7 @@ export default function Add() {
             onChange={handleInputChange}
             name="name"
             placeholder="Enter Employee Name"
+            required
             className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
           />
         </div>
@@ -107,6 +108,7 @@ export default function Add() {
             type="text"
             onChange={handleInputChange}
             name="employeeId"
+            required
             placeholder="Enter Employee ID"
             className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
           />
@@ -121,6 +123,7 @@ export default function Add() {
     onChange={handleInputChange}
     name="email"
     placeholder="Enter Email"
+    required
     className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
   />
 </div>
@@ -169,6 +172,7 @@ export default function Add() {
             onChange={handleInputChange}
             type="number"
             name="salary"
+            required
             placeholder="Enter Salary"
             className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
           />
@@ -213,6 +217,7 @@ export default function Add() {
             onChange={handleInputChange}
             type="password"
             name="password"
+            required
             placeholder="Enter Password"
             className="w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
           />
