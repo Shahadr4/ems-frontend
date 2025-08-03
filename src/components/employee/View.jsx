@@ -109,14 +109,14 @@ export default function View() {
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-indigo-300 shadow-md">
             <img
-              src={
-                employee.userId.profileImage && employee.userId.profileImage.data
-                  ? `data:${employee.userId.profileImage.contentType};base64,${employee.userId.profileImage.data}`
-                  : "/default-profile.png" // fallback image path
-              }
-              alt="Profile"
-              className="w-full h-full object-cover"
-            />
+  src={
+    employee.userId.profileImage && employee.userId.profileImage.data
+      ? `data:${employee.userId.profileImage.contentType};base64,${employee.userId.profileImage.data}`
+      : "/default-profile.png" // fallback image path
+  }
+  alt="Profile"
+  className="w-full h-full object-cover rounded-full"
+/>
           </div>
 
           <div className="text-gray-800 w-full">
