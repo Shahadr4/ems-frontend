@@ -17,7 +17,7 @@ export default function EditDepartment() {
         const fetchDepartment = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`https://ems-backend-taupe.vercel.app/api/department/${id}`, {
+                const response = await axios.get(`https://ems-backend-chi.vercel.app/api/department/${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
@@ -45,7 +45,7 @@ export default function EditDepartment() {
     console.log('Department added:', department);
     // Reset form or show success message
     try {
-        const response = await axios.put(`https://ems-backend-taupe.vercel.app/api/department/${id}`, department, {
+        const response = await axios.put(`https://ems-backend-chi.vercel.app/api/department/${id}`, department, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token')}` // Include token in headers
             }
