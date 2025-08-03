@@ -14,7 +14,7 @@ export default function View() {
     const fetchEmployee = async () => {
       try {
         const response = await axios.get(
-          `https://ems-backend-taupe.vercel.app/api/employee/${id}`,
+          `https://ems-backend-chi.vercel.app/api/employee/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -41,7 +41,7 @@ export default function View() {
       if (!employee) return;
       try {
         const res = await axios.get(
-          `https://ems-backend-taupe.vercel.app/api/attendence/monthly-records/${employee.userId._id}?month=${month + 1}&year=${year}`,
+          `https://ems-backend-chi.vercel.app/api/attendence/monthly-records/${employee.userId._id}?month=${month + 1}&year=${year}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
