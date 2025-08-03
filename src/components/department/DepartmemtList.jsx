@@ -38,7 +38,7 @@ export default function DepartmentList() {
 
   const onDepartmentDelete = async (id) => {
     try {
-      await axios.delete(`https://ems-backend-taupe.vercel.app/api/department/${id}`, {
+      await axios.delete(`https://ems-backend-chi.vercel.app/api/department/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
