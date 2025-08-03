@@ -14,7 +14,7 @@ export default function View() {
     const fetchEmployee = async () => {
       try {
         const response = await axios.get(
-          `https://employee-frontend-it9y.vercel.app/api/employee/${id}`,
+          `https://vercel.com/shahadr4s-projects/ems-backend/api/employee/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -41,7 +41,7 @@ export default function View() {
       if (!employee) return;
       try {
         const res = await axios.get(
-          `https://employee-frontend-it9y.vercel.app/api/attendence/monthly-records/${employee.userId._id}?month=${month + 1}&year=${year}`,
+          `https://vercel.com/shahadr4s-projects/ems-backend/api/attendence/monthly-records/${employee.userId._id}?month=${month + 1}&year=${year}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -109,7 +109,7 @@ export default function View() {
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-indigo-300 shadow-md">
             <img
-              src={`https://employee-frontend-it9y.vercel.app/${employee.userId.profileImage}`}
+              src={`https://vercel.com/shahadr4s-projects/ems-backend/${employee.userId.profileImage}`}
               alt="Profile"
               className="w-full h-full object-cover"
             />

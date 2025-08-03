@@ -23,7 +23,7 @@ export default function Edit() {
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
-        const response = await axios.get(`https://employee-frontend-it9y.vercel.app/api/employee/${id}`, {
+        const response = await axios.get(`https://vercel.com/shahadr4s-projects/ems-backend/api/employee/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -73,7 +73,7 @@ export default function Edit() {
 
     try {
       const response = await axios.put(
-  `https://employee-frontend-it9y.vercel.app/api/employee/edit/${id}`, // ✅ FIXED
+  `https://vercel.com/shahadr4s-projects/ems-backend/api/employee/edit/${id}`, // ✅ FIXED
   payload,
   {
     headers: {
@@ -162,7 +162,7 @@ export default function Edit() {
             />
           ) : employee?.userId?.profileImage ? (
             <img
-              src={`https://employee-frontend-it9y.vercel.app/${employee.userId.profileImage}`}
+              src={`https://vercel.com/shahadr4s-projects/ems-backend/${employee.userId.profileImage}`}
               alt="Current"
               className="w-32 h-32 object-cover rounded-full border mb-2"
             />

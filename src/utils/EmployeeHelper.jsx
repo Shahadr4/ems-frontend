@@ -17,7 +17,7 @@ export const columns = ( navigate) => [
     name: "Profile",
     cell: (row) => (
       <img
-        src={`https://employee-frontend-it9y.vercel.app/${row.profileImage}`}
+        src={`https://vercel.com/shahadr4s-projects/ems-backend/${row.profileImage}`}
         alt="Profile"
         className="w-10 h-10 object-cover border border-gray-300"
       />
@@ -84,7 +84,7 @@ export const fetchDepartments = async()=>{
     let departments
    
       try {
-        const response = await axios.get("https://employee-frontend-it9y.vercel.app/api/department", {
+        const response = await axios.get("https://vercel.com/shahadr4s-projects/ems-backend/api/department", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

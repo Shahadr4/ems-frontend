@@ -30,7 +30,7 @@ const fetchAttendance = async () => {
   try {
     setLoading(true);
     const res = await axios.get(
-      `https://employee-frontend-it9y.vercel.app/api/attendence/monthly-records/${userId}?month=${month + 1}&year=${year}`
+      `https://vercel.com/shahadr4s-projects/ems-backend/api/attendence/monthly-records/${userId}?month=${month + 1}&year=${year}`
     );
     const map = {};
     for (let r of res.data.records) {

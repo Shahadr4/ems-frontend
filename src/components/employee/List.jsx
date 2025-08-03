@@ -15,7 +15,7 @@ export default function List() {
   const fetchEmployees = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("https://employee-frontend-it9y.vercel.app/api/employee", {
+      const response = await axios.get("https://vercel.com/shahadr4s-projects/ems-backend/api/employee", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

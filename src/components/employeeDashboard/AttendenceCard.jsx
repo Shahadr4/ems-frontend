@@ -20,7 +20,7 @@ export default function AttendenceCard({ id }) {
 
     try {
       const res = await axios.get(
-        `https://employee-frontend-it9y.vercel.app/api/attendence/status?date=${today}`,
+        `https://vercel.com/shahadr4s-projects/ems-backend/api/attendence/status?date=${today}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -46,7 +46,7 @@ export default function AttendenceCard({ id }) {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "https://employee-frontend-it9y.vercel.app/api/attendence/add",
+        "https://vercel.com/shahadr4s-projects/ems-backend/api/attendence/add",
         { status: markAs },
         { headers: { Authorization: `Bearer ${token}` } }
       );
