@@ -18,8 +18,8 @@ export const columns = ( navigate) => [
     cell: (row) => (
       <img
   src={
-    employee.userId.profileImage && employee.userId.profileImage.data
-      ? `data:${employee.userId.profileImage.contentType};base64,${employee.userId.profileImage.data}`
+    row.profileImage && row.profileImage.data
+      ? `data:${row.profileImage.contentType};base64,${row.profileImage.data}`
       : "/default-profile.png" // fallback image path
   }
   alt="Profile"
