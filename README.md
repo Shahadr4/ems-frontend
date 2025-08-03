@@ -104,7 +104,7 @@ This project was developed to demonstrate a real-world use case of **role-based 
 
 ### Frontend
 - ⚛️ React.js
-- CSS / HTML5
+- tailwind css
 
 ### Backend
 - 🟢 Node.js
