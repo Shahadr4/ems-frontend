@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
       const token = localStorage.getItem("token");
       if (token) {
         try {
-          const response = await axios.get("https://vercel.com/shahadr4s-projects/ems-backend/api/auth/verify", {
+          const response = await axios.get("https://ems-backend-taupe.vercel.app/api/auth/verify", {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (response.data.success) {

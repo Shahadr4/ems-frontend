@@ -12,7 +12,7 @@ export default function View() {
     const fetchEmployee = async () => {
       try {
         const response = await axios.get(
-          `https://vercel.com/shahadr4s-projects/ems-backend/api/employee/${id}`,
+          `https://ems-backend-taupe.vercel.app/api/employee/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -54,7 +54,7 @@ export default function View() {
         <div className="flex-shrink-0 w-48 h-48 rounded-full overflow-hidden border-4 border-gray-200 shadow">
           {employee.userId.profileImage ? (
             <img
-              src={`https://vercel.com/shahadr4s-projects/ems-backend/${employee.userId.profileImage}`}
+              src={`https://ems-backend-taupe.vercel.app/${employee.userId.profileImage}`}
               alt="Profile"
               className="w-full h-full object-cover"
             />

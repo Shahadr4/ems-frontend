@@ -13,7 +13,7 @@ export default function DepartmentList() {
   const fetchDepartments = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("https://vercel.com/shahadr4s-projects/ems-backend/api/department", {
+      const response = await axios.get("https://ems-backend-taupe.vercel.app/api/department", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -38,7 +38,7 @@ export default function DepartmentList() {
 
   const onDepartmentDelete = async (id) => {
     try {
-      await axios.delete(`https://vercel.com/shahadr4s-projects/ems-backend/api/department/${id}`, {
+      await axios.delete(`https://ems-backend-taupe.vercel.app/api/department/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

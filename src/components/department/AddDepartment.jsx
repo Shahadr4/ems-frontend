@@ -28,7 +28,7 @@ export default function AddDepartment() {
     console.log('Department added:', department);
     // Reset form or show success message
     try {
-        const response = await axios.post('https://vercel.com/shahadr4s-projects/ems-backend/api/department/add', department, {
+        const response = await axios.post('https://ems-backend-taupe.vercel.app/api/department/add', department, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token')}` // Include token in headers
             }
