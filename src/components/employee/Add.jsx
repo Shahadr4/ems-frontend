@@ -65,6 +65,7 @@ export default function Add() {
       navigate("/admin-dashboard/employees");
     }
   } catch (error) {
+    console.log("response doesnt get")
     alert(error.response?.data?.error || "Something went wrong");
   }
 };
