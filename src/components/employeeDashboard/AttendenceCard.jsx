@@ -8,7 +8,6 @@ export default function AttendenceCard({ id }) {
   const [marking, setMarking] = useState(false);
 
   const today = new Date();
-today.setHours(0, 0, 0, 0);
 
   // Fetch today's attendance status
   const fetchTodayStatus = async () => {
