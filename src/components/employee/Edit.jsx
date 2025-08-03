@@ -23,7 +23,7 @@ export default function Edit() {
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
-        const response = await axios.get(`https://ems-backend-taupe.vercel.app/api/employee/${id}`, {
+        const response = await axios.get(`https://ems-backend-chi.vercel.app/api/employee/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -73,7 +73,7 @@ export default function Edit() {
 
     try {
       const response = await axios.put(
-  `https://ems-backend-taupe.vercel.app/api/employee/edit/${id}`, // ✅ FIXED
+  `https://ems-backend-chi.vercel.app/api/employee/edit/${id}`, // ✅ FIXED
   payload,
   {
     headers: {
