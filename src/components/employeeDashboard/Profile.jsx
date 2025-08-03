@@ -12,7 +12,7 @@ export default function View() {
     const fetchEmployee = async () => {
       try {
         const response = await axios.get(
-          `https://ems-backend-taupe.vercel.app/api/employee/${id}`,
+          `https://ems-backend-chi.vercel.app/api/employee/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
